@@ -617,7 +617,7 @@ function webSocketConnect() {
                         socket.send('MPD_API_GET_QUEUE,'+pagination);
                     break;
                 case 'song_change':
-
+                    updatePageTitle(obj.data);
                     $('#album').text("");
                     $('#artist').text("");
 
@@ -755,6 +755,20 @@ var updatePlayIcon = function(state)
         $("#play-icon").addClass("glyphicon-play");
         $('#track-icon').addClass("glyphicon-pause");
         if (httpAudioStreamEnabled) { httpAudioStream.pause(); }
+    }
+}
+
+var updatePageTitle = function(songInfo) {
+    if(!songInfo || (!songInfo.artist && !songInfo.title)) {
+        document.title = 'ympd';
+        return;
+    }
+    if(songInfo.artist) {
+        if(songInfo.title) {
+            document.title = songInfo.artist + ' - ' + songInfo.title;
+        }
+    } else {
+        document.title = songInfo.title;
     }
 }
 
