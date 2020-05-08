@@ -33,11 +33,11 @@
       <div class="collapse navbar-collapse">
 
         <ul id="nav_links" class="nav navbar-nav">
-          <li id="queue"><a href="#/">Queue</a></li>
-          <li id="browse"><a href="#/browse/0/">Browse Database</a></li>
+          <li id="queue"><a href="#/">播放列表</a></li>
+          <li id="browse"><a href="#/browse/0/">浏览数据库</a></li>
           <li id="dirble"><a href="#/dirble/">Dirble</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#addstream">Add Stream</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#settings" onclick="getHost();">Settings</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#addstream">添加流媒体</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#settings" onclick="getHost();">设置</a></li>
         </ul>
 
         <div class="btn-toolbar navbar-btn navbar-right" role="toolbar">
@@ -69,7 +69,7 @@
         </div>
         <form id="search" class="navbar-form navbar-right" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" class="form-control" placeholder="查找">
           </div>
         </form>
       </div><!--/.nav-collapse -->
@@ -81,10 +81,10 @@
 
       <div class="col-md-10 col-xs-12">
         <div class="notifications top-right"></div>
-        
+
         <div class="panel panel-primary">
           <!-- Default panel contents -->
-          <div class="panel-heading"><b id="panel-heading">Queue</b></div>
+          <div class="panel-heading"><b id="panel-heading">播放列表</b></div>
           <div class="panel-body">
             <h1>
               <span id="track-icon" onclick="clickPlay();" class="glyphicon glyphicon-play"></span>
@@ -105,7 +105,7 @@
           </ol>
 
           <div class="col-md-12" id="filter">
-          <button id="add-all-songs" class="btn btn-primary pull-right">Add all</button>
+          <button id="add-all-songs" class="btn btn-primary pull-right">全部添加</button>
           </div>
 
 
@@ -114,8 +114,8 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th colspan="2">Track</th>
-                <th>Duration</th>
+                <th colspan="2">轨道</th>
+                <th>持续时间</th>
                 <th></th>
               </tr>
             </thead>
@@ -124,7 +124,7 @@
           </table>
 
           <div id="dirble_panel">
-            <p id="dirble_loading" style="font-size:16px;font-weight:bold;margin-left:4em;">Loading...</p>
+            <p id="dirble_loading" style="font-size:16px;font-weight:bold;margin-left:4em;">正在加载...</p>
             <table style="float:right; width:44%; margin-right:4%;" id="dirble_right" class="table table-hover">
                 <thead>
                 <tr>
@@ -147,8 +147,8 @@
 
         </div><!-- /.panel -->
         <ul class="pager">
-          <li id="prev" class="page-btn hide"><a href="">Previous</a></li>
-          <li id="next" class="page-btn"><a href="">Next</a></li>
+          <li id="prev" class="page-btn hide"><a href="">上一个</a></li>
+          <li id="next" class="page-btn"><a href="">下一个</a></li>
         </ul>
       </div><!-- /.col-md-10 -->
 
@@ -156,19 +156,19 @@
         <div class="btn-toolbar">
           <div class="btn-group-vertical btn-block btn-group-lg" data-toggle="buttons">
             <button id="btnrandom" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-random"></span> Random
+              <span class="glyphicon glyphicon-random"></span> 随机模式
             </button>
             <button id="btnconsume" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-fire"></span> Consume
+              <span class="glyphicon glyphicon-fire"></span> 消除模式
             </button>
             <button id="btnsingle" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-star"></span> Single
+              <span class="glyphicon glyphicon-star"></span> 单曲循环
             </button>
             <button id="btncrossfade" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-link"></span> Crossfade
+              <span class="glyphicon glyphicon-link"></span> 淡入淡出
             </button>
             <button id="btnrepeat" type="button" class="btn btn-default">
-              <span class="glyphicon glyphicon-repeat"></span> Repeat
+              <span class="glyphicon glyphicon-repeat"></span> 重复播放
             </button>
           </div>
           <div id="btn-outputs-block" class="btn-group-vertical btn-block btn-group-lg">
@@ -177,24 +177,24 @@
           <div id="trashmode" class="btn-group-vertical btn-block btn-group-lg" data-toggle="radio">
             <button id="btntrashmodeup" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-chevron-up"></span>
-              <span class="glyphicon glyphicon-trash"></span> <span>Up</span>
+              <span class="glyphicon glyphicon-trash"></span> <span>向上</span>
             </button>
             <button id="btntrashmodesingle" type="button" class="btn btn-default active">
               <span class="glyphicon glyphicon-star-empty"></span>
-              <span class="glyphicon glyphicon-trash"></span> <span>Single</span>
+              <span class="glyphicon glyphicon-trash"></span> <span>单曲</span>
             </button>
             <button id="btntrashmodedown" type="button" class="btn btn-default">
               <span class="glyphicon glyphicon-chevron-down"></span>
-              <span class="glyphicon glyphicon-trash"></span> <span>Down</span>
+              <span class="glyphicon glyphicon-trash"></span> <span>向下</span>
             </button>
           </div>
 
           <div id="btn-responsive-block" class="btn-group-vertical btn-block btn-group-lg">
             <button type="button" class="btn btn-default" onclick="socket.send('MPD_API_RM_ALL');">
-              <span class="glyphicon glyphicon-trash"></span> Clear Queue
+              <span class="glyphicon glyphicon-trash"></span> 清除播放列表
             </button>
             <a href="#" data-toggle="modal" data-target="#savequeue" class="btn btn-default">
-              <span class="glyphicon glyphicon-save"></span> Save Queue
+              <span class="glyphicon glyphicon-save"></span> 保存播放列表
             </a>
           </div>
 
@@ -209,25 +209,24 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="modal-title" id="settingsLabel"><span class="glyphicon glyphicon-wrench"></span> Settings</h2>
+          <h2 class="modal-title" id="settingsLabel"><span class="glyphicon glyphicon-wrench"></span>设置</h2>
         </div>
         <div class="modal-body">
-          <h4><a href="http://www.ympd.org"><span class="glyphicon glyphicon-play-circle"></span> ympd</a>&nbsp;&nbsp;&nbsp;<small>MPD Web GUI - written in C, utilizing Websockets and Bootstrap/JS</small></h4>
-          <p>
-          ympd is a lightweight MPD (Music Player Daemon) web client that runs without a dedicated webserver or interpreters like PHP, NodeJS or Ruby. It's tuned for minimal resource usage and requires only very litte dependencies.</p>
-          <h5>ympd uses following excellent software:</h5>
+          <h4><a href="http://www.ympd.org"><span class="glyphicon glyphicon-play-circle"></span> ympd</a>&nbsp;&nbsp;&nbsp;<small>MPD Web GUI - 用 C 编写，使用 Websockets 和 Bootstrap/JS</small></h4>
+          <p>ympd 是一个轻量级的 MPD (音乐播放器守护程序) web 客户端,运行时没有专用的web服务器或解释器,如 PHP,NodeJS 或 Ruby.它被调整为最小的资源使用,只需要非常小的依赖性.</p>
+          <h5>ympd 使用以下优秀软件:</h5>
           <h6><a href="http://cesanta.com/docs.html">Mongoose</a> <small>GPLv2</small></h6>
           <h6><a href="http://www.musicpd.org/libs/libmpdclient/">libMPDClient</a> <small>BSD License</small></h6>
 	  <hr />
           <div class="row">
             <div class="form-group col-md-6">
               <button type="button" class="btn btn-default btn-block" onclick="updateDB();">
-                <span class="glyphicon glyphicon-refresh"></span> Update Database
+                <span class="glyphicon glyphicon-refresh"></span> 更新数据库
               </button>
             </div>
             <div class="form-group col-md-6" data-toggle="buttons">
               <button type="button" class="btn btn-default btn-block" id="btnnotify">
-                <span class="glyphicon glyphicon-comment"></span> Enable Notifications
+                <span class="glyphicon glyphicon-comment"></span> 启用通知
               </button>
             </div>
           </div>
@@ -235,52 +234,52 @@
           <form role="form">
             <div class="row">
               <div class="form-group col-md-9">
-                <label class="control-label" for="mpdhost">MPD Host/IP</label>
+                <label class="control-label" for="mpdhost">MPD 主机 / IP</label>
                 <input type="text" class="form-control" id="mpdhost" />
               </div>
               <div class="form-group col-md-3">
-                <label class="control-label" for="mpdport">MPD Port</label>
-                <input type="number" class="form-control" id="mpdport" />
+                <label class="control-label" for="mpdport">MPD 端口</label>
+                <input type="text" class="form-control" id="mpdport" />
               </div>
             </div>
             <div class="row" id="audiostreamcheckbox">
                 <div class="form-group col-md-3">
-                    <input type="checkbox" name="audiostreamenabled" id="audiostreamenabled"> HTTP Audio Stream<br>
+                    <input type="checkbox" name="audiostreamenabled" id="audiostreamenabled"> HTTP 音频流<br>
                 </div>
             </div >
             <div class="row" id="audiostreamsettings" hidden>
               <div class="form-group col-md-9">
-                <label class="control-label" for="audiostreamhost">Audio stream Host/IP</label>
+                <label class="control-label" for="audiostreamhost">音频流主机 / IP</label>
                 <input type="text" class="form-control" id="audiostreamhost" />
               </div>
               <div class="form-group col-md-3">
-                <label class="control-label" for="audiostreamport">Stream Port</label>
+                <label class="control-label" for="audiostreamport">音频流端口</label>
                 <input type="number" class="form-control" id="audiostreamport" />
               </div>
             </div>
             <div class="row">
               <div class="form-group col-md-6">
-                <label class="control-label" for="mpd_pw">MPD Password</label>
-                <input type="password" class="form-control" id="mpd_pw" placeholder="Password"/>
+                <label class="control-label" for="mpd_pw">MPD 密码</label>
+                <input type="password" class="form-control" id="mpd_pw" placeholder="密码"/>
               </div>
               <div class="form-group col-md-6">
-                <label class="control-label" for="mpd_pw_con">MPD Password (Confirmation)</label>
-                <input type="password" class="form-control" id="mpd_pw_con"  placeholder="Confirmation"
-                data-placement="right" data-toggle="popover" data-content="Password does not match!"
+                <label class="control-label" for="mpd_pw_con">MPD 密码 (确认)</label>
+                <input type="password" class="form-control" id="mpd_pw_con"  placeholder="确认"
+                data-placement="right" data-toggle="popover" data-content="密码不匹配!"
                 data-trigger="manual" />
               </div>
               <div class="form-group col-md-12">
                 <div id="mpd_password_set" class="hide alert alert-info">
                   <button type="button" class="close" aria-hidden="true">&times;</button>
-                  MPD Password is set
+                  MPD 密码已设置
                 </div>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" onclick="confirmSettings();">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-default" onclick="confirmSettings();">保存</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -292,46 +291,46 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="modal-title" id="addstreamLabel"><span class="glyphicon glyphicon-wrench"></span> Add Stream</h2>
+          <h2 class="modal-title" id="addstreamLabel"><span class="glyphicon glyphicon-wrench"></span>添加流媒体</h2>
         </div>
         <div class="modal-body">
           <form role="form">
             <div class="row">
               <div class="form-group col-md-12">
-                <label class="control-label" for="streamurl">Stream URL</label>
+                <label class="control-label" for="streamurl">流媒体</label>
                 <input type="text" class="form-control" id="streamurl" />
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" onclick="addStream();">Add Stream</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-default" onclick="addStream();">添加流媒体</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-  
+
   <div class="modal fade" id="savequeue" tabindex="-1" role="dialog" aria-labelledby="savequeueLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="modal-title" id="savequeueLabel"><span class="glyphicon glyphicon-wrench"></span> Save Queue</h2>
+          <h2 class="modal-title" id="savequeueLabel"><span class="glyphicon glyphicon-wrench"></span>保存播放列表</h2>
         </div>
         <div class="modal-body">
           <form role="form">
             <div class="row">
               <div class="form-group col-md-9">
-                <label class="control-label" for="playlistname">Playlist Name</label>
+                <label class="control-label" for="playlistname">播放列表名</label>
                 <input type="text" class="form-control" id="playlistname" />
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-default" onclick="saveQueue();">Save Queue</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-default" onclick="saveQueue();">保存播放列表</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -341,12 +340,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1>Searching...</h1>
+          <h1>查找...</h1>
         </div>
         <div class="modal-body">
           <div class="progress progress-striped active">
             <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-              <span class="sr-only">Please Wait</span>
+              <span class="sr-only">请稍等</span>
             </div>
           </div>
         </div>
