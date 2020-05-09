@@ -992,7 +992,7 @@ function confirmSettings() {
             console.log("[HTTP Audio Streaming] fallback to defalt host: " + host);
         }
         if (typeof port == "undefined" || (port < 0 || port > 65535) || port.length == 0) {
-            port=5443;
+            port=8800;
             console.log("[HTTP Audio Streaming] fallback to default port: " + port);
         } 
         
