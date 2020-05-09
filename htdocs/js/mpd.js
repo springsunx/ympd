@@ -1,7 +1,7 @@
 /* ympd
    (c) 2013-2014 Andrew Karpow <andy@ndyk.de>
    This project's homepage is: https://www.ympd.org
-   
+
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; version 2 of the License.
@@ -203,9 +203,9 @@ function checkSettings()
     } else if ( httpAudioStreamEnabled ){
         var host;
         var port;
-        
+
         try // Try retrieving stream host and port from cookies, fall back to default value if undefined
-        {   
+        {
             var src = $.cookie("httpAudioStreamSrc").split("://")[1];
             host = src.split(":")[0];
             port = src.split(":")[1];
@@ -213,18 +213,18 @@ function checkSettings()
                 host = window.location.hostname;
             }
             if (typeof port == "undefined" || (port < 0 || port > 65535)){
-                port = 5443
+                port = 8800
             }
         } catch(err) // Fallback to default values
-        {   
+        {
             host = window.location.hostname;
-            port = 5443;
-        }  
-        
+            port = 8800;
+        }
+
         if (httpAudioStreamEnabled){
             $('#audiostreamhost').val(host);
             $('#audiostreamport').val(port);
-        } 
+        }
     }
 }
 
@@ -234,18 +234,18 @@ function createHTTPAudioStream()
     * I'm not sure if this is portable. Seems to work in new Chrome and FF.
     * This also assumes the ympd server is the same as the stream.
     *
-    * The httpAudioStreamPort can be added in the settings. Ideally, 
+    * The httpAudioStreamPort can be added in the settings. Ideally,
     * this should be autodetected.
     */
-   
+
    httpAudioStream = document.createElement('audio');
    httpAudioStream.id = "audiostream";
    var src = $.cookie("httpAudioStreamSrc");
    if ( src ){
        httpAudioStream.src = src;
-   } else { 
+   } else {
        // Default values
-       httpAudioStream.src = window.location.protocol + "//" + window.location.hostname + ":5443";
+       httpAudioStream.src = window.location.protocol + "//" + window.location.hostname + ":8800";
        // Save these values to a cookie
        $.cookie("httpAudioStreamSrc", httpAudioStream.src);
    }
@@ -287,12 +287,12 @@ function webSocketConnect() {
             /* emit initial request for output names */
             socket.send('MPD_API_GET_OUTPUTS');
             /* emit initial request for dirble api token */
-            socket.send('MPD_API_GET_DIRBLEAPITOKEN');     
+            socket.send('MPD_API_GET_DIRBLEAPITOKEN');
             /* add the http stream */
             if (httpAudioStreamEnabled) { createHTTPAudioStream(); }
-            
+
             /* Populate the form values.
-             * Without this, e.g., mpdhost.value. does not have a value 
+             * Without this, e.g., mpdhost.value. does not have a value
              * until you enter the Settings modal. I'm not sure if this is intended.
              *
              * This can be removed since I'm not using it (Anthony Clark)
@@ -378,7 +378,7 @@ function webSocketConnect() {
                       });
                       return $helper;
                     };
-                    
+
                     //Make queue table sortable
                     $('#salamisandwich > tbody').sortable({
                       helper: fixHelperModified,
@@ -665,7 +665,7 @@ function webSocketConnect() {
                     break;
                 case 'dirbleapitoken':
                     dirble_api_token = obj.data;
-                    
+
 		    if (dirble_api_token) {
 		        $('#dirble').removeClass('hide');
 
@@ -890,7 +890,7 @@ function getHost() {
         confirmSettings();
       }
     }
-    
+
     $('#mpdhost').keypress(onEnter);
     $('#mpdport').keypress(onEnter);
     if (httpAudioStreamEnabled && !$('#audiostreamenabled').is(":checked")){
@@ -915,7 +915,7 @@ $('#audiostreamenabled').click(function(){
     $('#audiostreamsettings').toggle();
     if ($('#audiostreamenabled').is(":checked") && !$("#audiostreamhost").attr("value")){
         $("#audiostreamhost").attr("placeholder", window.location.hostname);
-        $("#audiostreamport").attr("placeholder", 5443);
+        $("#audiostreamport").attr("placeholder", 8800);
     }
 });
 
@@ -978,14 +978,14 @@ function confirmSettings() {
             socket.send('MPD_API_SET_MPDPASS,'+$('#mpd_pw').val());
     }
     socket.send('MPD_API_SET_MPDHOST,'+$('#mpdport').val()+','+$('#mpdhost').val());
-    
+
     httpAudioStreamEnabled = $('#audiostreamenabled').is(":checked");
     $.cookie("httpAudioStreamEnabled", httpAudioStreamEnabled);
     if (httpAudioStreamEnabled)
-    {   
+    {
         var host=$('#audiostreamhost').val();
         var port=$('#audiostreamport').val();
-        
+
         // Fallback to default values if there are bad values
         if (typeof host == "undefined" || host.length == 0){
             host = window.location.hostname;
@@ -994,8 +994,8 @@ function confirmSettings() {
         if (typeof port == "undefined" || (port < 0 || port > 65535) || port.length == 0) {
             port=8800;
             console.log("[HTTP Audio Streaming] fallback to default port: " + port);
-        } 
-        
+        }
+
         // Set audio source
         var audioSrc = window.location.protocol + "//" + host + ':' + port;
         // Save streaming URL in a cookie
@@ -1007,7 +1007,7 @@ function confirmSettings() {
             createHTTPAudioStream();
         }
     }
-    
+
     $('#settings').modal('hide');
 }
 
